@@ -1,8 +1,8 @@
 @import url("https://fonts.googleapis.com/css2?family=Noto+Serif:wght@400;700&display=swap");
 
 :root {
-  --primary: #efb6b2;
-  --secondary: #4e4e4e;
+  --primary: #4cb999;
+  --secondary: #164a41;
   --error: #ff4a4a;
 }
 
@@ -31,8 +31,27 @@ body {
 }
 
 /* upload form styles */
+.form-upload-image {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
 
-/* progress bar styles */
+.form-upload-image > .icon-upload {
+  margin-top: 30px;
+  color: var(--primary);
+}
+
+.form-upload-image > .output > .progress-bar {
+  height: 5px;
+  background: var(--primary);
+  margin-top: 20px;
+}
+
+#upload-photo {
+  display: none;
+}
 
 /* image grid styles */
 

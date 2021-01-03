@@ -1,5 +1,9 @@
 import { useState, useEffect } from "react";
-import { projectStorage } from "../firebase/config";
+import {
+  projectStorage,
+  projectFireStore,
+  timestamp,
+} from "../firebase/config";
 
 // This is a hook to use the storage from firebase.
 const useStorage = (file) => {
@@ -11,6 +15,9 @@ const useStorage = (file) => {
   useEffect(() => {
     // First define the reference (DOM reference) to the attribute name of the file
     const storageRef = projectStorage.ref(file.name);
+
+    // Reference to the collection where we want to save the document (file) to
+    const collectionRef = projectFireStore.collection("images");
 
     // This will take a file and put it in the reference
     // This put method is asyncronous so we can fire functions when certain events happen:
@@ -25,8 +32,11 @@ const useStorage = (file) => {
         setError(err);
       },
       async () => {
-        // Deal with sucess upload
+        // Deal with sucess upload:
+        // First get the url of the referenced file, then add it to the collectionRef
         const url = await storageRef.getDownloadURL();
+        const createdAt = timestamp();
+        collectionRef.add({ url, createdAt });
         setURL(url);
       }
     );
